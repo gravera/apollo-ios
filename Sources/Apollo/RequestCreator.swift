@@ -125,13 +125,8 @@ extension RequestCreator {
     formData.appendPart(data: operationData, name: "operations")
 
     var map = [String: [String]]()
-    if files.count == 1 {
-      let firstFile = files.first!
-      map["0"] = ["variables.\(firstFile.fieldName)"]
-    } else {
-      for (index, file) in files.enumerated() {
-        map["\(index)"] = ["variables.\(file.fieldName).\(index)"]
-      }
+    for (index, file) in files.enumerated() {
+      map["\(index)"] = ["variables.\(file.fieldName).\(index)"]
     }
 
     let mapData = try serializationFormat.serialize(value: map)
